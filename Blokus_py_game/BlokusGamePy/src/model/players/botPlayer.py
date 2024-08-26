@@ -6,6 +6,8 @@ class botPlayer(Player):
         super().__init__(name)
         self.is_user = False
 
-    def make_move(self, game_map):
+    def make_move(self, map_model):
+        if not map_model.can_put_any_shape(map_model.get_current_player()):
+            return
         # TODO document why this method is empty
-        pass
+        return

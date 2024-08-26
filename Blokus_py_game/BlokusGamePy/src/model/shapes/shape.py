@@ -12,6 +12,13 @@ def mirror(coordinates):
     return normalize_coordinates(mirrored_shape)
 
 
+def is_edge_coordinate(coordinates, row, col):
+    if (((row-1, col) in coordinates and (row+1, col) in coordinates) or
+            ((row, col-1) in coordinates and (row, col+1) in coordinates)):
+        return False
+    return True
+
+
 class Shape(ABC):
     def __init__(self, color, num_of_squares, num_of_rotations, can_flip, normalized_coordinates):
         self.__color = color
@@ -64,3 +71,4 @@ class Shape(ABC):
             for variation in variations.copy():
                 variations.append(mirror(variation))
         return variations
+

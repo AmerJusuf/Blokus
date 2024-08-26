@@ -3,38 +3,6 @@ U
 %venv/Lib/site-packages/_virtualenv.py,f\5\f5c48216f2a9f1db379f151d0b6361156a32b61b
 @
 BlokusGamePy.iml,5\2\527909d8967c3761f2b4f3440d3e07017b97d086
-7
-main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
-@
-view/__init__.py,4\3\43605dbf2ba3a7267e84d0ad2b565b1b146d3414
-F
-controller/__init__.py,b\1\b1cfbb59f83425610ac4fcf78fe4a13dc4d82e8e
-I
-model/src/shapes/Shape.py,2\a\2a264de449b5591b20e4b66f59024c711e8c3d1e
-K
-model/src/shapes/L_shape.py,1\7\1795c0bc970282dbbf6c4d4bd8df5ee2b153b2d8
-I
-model/src/shapes/shape.py,5\1\51c04f5b0db2d2a7dd0ac0d6a8aec9c883e72600
-E
-model/src/__init__.py,8\8\882771063c23b2fc5fa6df16231600304bf3809b
-L
-model/src/shapes/__init__.py,8\6\868b2997ba058e6ec28a90d6f5ed22007673b5cd
-H
-model/src/Map/GameMap.py,0\3\03a20a75534490db128ee9568bd6c45c862e4400
-I
-model/src/Map/game_map.py,b\b\bbd943fcb9ca04d6bba514e0e6769da2ef15caec
-K
-model/src/players/player.py,3\2\325f693ad8f5f8ebbb4240474f279022e6d2b446
-O
-view/game_window/game_window.py,3\7\372d9b55a44e6a6fd4134623ed8d4a394fa7d29e
-M
-controller/game_controller.py,f\0\f0254ad6e48971aef0d47532fcb584d7d86a37d3
-I
-model/src/map/game_map.py,3\0\300a7ede745fe0eed0a69c09b81812f6fb4dd95f
-E
-src/shapes/L_shape.py,8\9\89ea79ade5af65589f14cf93df7a9ccc07dd939c
-G
-model/shapes/L_shape.py,7\7\777e1b8ae7e10719cbe9ef2e0607902a7be7e523
 K
 src/model/shapes/L_shape.py,e\d\ed33ac1ea69ea5caa4c0b19df4644128827b5958
 S
@@ -47,8 +15,6 @@ K
 src/model/players/player.py,f\d\fd464fd64b7545bf650cc9a1c699776fc298d764
 I
 src/model/players/user.py,7\3\73b4a3f2625f4bdf639064912f8cd3d18ff2d8ab
-H
-src/model/players/bot.py,7\c\7cab58564e61e68ef17878946a66c64d566f56e6
 N
 src/model/players/botPlayer.py,9\3\93848e6ccd6cd1ef18aabbd442b0e077df71ea0f
 I
@@ -73,8 +39,6 @@ I
 src/model/shapes/chair.py,7\2\72b44142d6d65c86237e3fcde33e866cd4357c0a
 J
 src/model/shapes/zigzag.py,2\2\22789f4fcb55ec706beaa87b0e945f34189c306c
-N
-src/model/shapes/small_star.py,6\3\63ef4f99550750efcac8e5c618a54a0d2327c2c9
 N
 src/model/shapes/long_stair.py,9\f\9fecce06e9424b4bcd5be607eedd9adeccc08231
 I

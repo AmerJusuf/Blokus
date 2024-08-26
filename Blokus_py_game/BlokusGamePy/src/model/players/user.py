@@ -35,6 +35,7 @@ class User(Player):
             map_model.clear_selected_squares()
             return False
 
+    # returns the shape if the selected squares matches to one of the shapes the user has
     def has_shape(self, map_model):
         selected_coordinates = map_model.get_selected_squares()
         normalized__selected_coordinates = normalize_coordinates(selected_coordinates)

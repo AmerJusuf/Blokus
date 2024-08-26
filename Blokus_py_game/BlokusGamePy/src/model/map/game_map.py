@@ -1,4 +1,7 @@
+import copy
 from enum import Enum, auto
+
+from src.model.shapes.shape import is_edge_coordinate
 
 
 class Placement(Enum):
@@ -46,7 +49,6 @@ class GameMap:
         if player.has_placed_any() and len(self.__selected_squares) == 0 and not self.has_apex(row, col,
                                                                                                player.get_color()):
             return False
-        print("row, col: " + str(row) + " " + str(col))
         if not player.has_placed_any() and len(self.__selected_squares) == 0 and not self.is_in_corner(row, col):
             return False
         return True
@@ -71,29 +73,93 @@ class GameMap:
                     self.__map[row][col] = Placement.NONE
         self.__selected_squares = []
 
-    def is_next_to(self, row, col, placement):
-        if row > 0 and self.__map[row - 1][col] == placement:
+
+    # next or upper/below
+    def is_next_to(self, row, col, placement, _map=None):
+        if _map is None:
+            _map = self.__map
+        if row > 0 and _map[row - 1][col] == placement:
             return True
-        if row < 19 and self.__map[row + 1][col] == placement:
+        if row < 19 and _map[row + 1][col] == placement:
             return True
-        if col > 0 and self.__map[row][col - 1] == placement:
+        if col > 0 and _map[row][col - 1] == placement:
             return True
-        if col < 19 and self.__map[row][col + 1] == placement:
+        if col < 19 and _map[row][col + 1] == placement:
             return True
         return False
 
     def has_apex(self, row, col, placement):
         if row > 0 and col > 0 and self.__map[row - 1][col - 1] == placement:
-            print("ok1")
             return True
         if row < 19 and col > 0 and self.__map[row + 1][col - 1] == placement:
-            print("ok2")
             return True
         if row > 0 and col < 19 and self.__map[row - 1][col + 1] == placement:
-            print("ok3")
             return True
         if row < 19 and col < 19 and self.__map[row + 1][col + 1] == placement:
-            print("ok4")
             return True
-        print("ok")
         return False
+
+    def get_free_apexes(self, player):
+        free_apexes = []
+        for row in range(0, 20):
+            for col in range(0, 20):
+                if self.__map[row][col] == Placement.NONE and self.has_apex(row, col, player.get_color()):
+                    free_apexes.append((row, col))
+        return free_apexes
+
+    def can_put_any_shape(self, player):
+        if not player.has_unplaced_shape():
+            player.set_is_game_over(True)
+            return False
+        if not player.has_placed_any():
+            return True
+        for shape in player.get_shapes():
+            coordinates = self.get_free_apexes(player)
+            for row, col in coordinates:
+                if self.can_put_shape_at(shape, row, col, player):
+                    print("CAN PUT SHAPE: ")
+                    print("player: " + str(player.get_color()))
+                    for x, y in shape.get_normalized_coordinates():
+                        print(x, y)
+                    return True
+        print("CANNOT PUT SHAPE")
+        player.set_is_game_over(True)
+        return False
+
+    def can_put_shape_at(self, shape, row, col, player):
+        for current_shape in shape.get_all_variations():
+            current_apexes = self.get_apexes_of_shape(current_shape)
+            for x, y in current_apexes:
+                print("current_shape", current_shape)
+                squares_to_select = []
+
+                for n_x, n_y in current_shape:
+                    print("x : " + str(row+ n_x - x))
+                    print("y : " + str(col + n_y - y))
+                    squares_to_select.append((row + n_x - x, col + n_y - y))
+                if self.could_place_shape(squares_to_select, player):
+                    return True
+        return False
+
+    def could_place_shape(self, selected_coordinates, player):
+        tmp_map = copy.deepcopy(self.__map)
+        for row, col in selected_coordinates:
+            if row >= 20 or row < 0 or col >=20 or col < 0 or tmp_map[row][col] != Placement.NONE:
+                return False
+            tmp_map[row][col] = Placement.SELECTED
+        for row in range(0, 20):
+            for col in range(0, 20):
+                if tmp_map[row][col] == Placement.SELECTED:
+                    if not self.is_next_to(row, col, Placement.SELECTED, tmp_map):
+                        return False
+                    if self.is_next_to(row, col, player.get_color(), tmp_map):
+                        return False
+        return True
+
+    def get_apexes_of_shape(self, coordinates):
+        apexes = []
+        for x, y in coordinates:
+            if is_edge_coordinate(coordinates,x, y):
+                apexes.append((x, y))
+        return apexes
+

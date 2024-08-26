@@ -12,6 +12,13 @@ class GameController:
         self.__map_view.set_current_player(player)
 
     def handle_turn(self):
+        print("player: " + str(self.__current_player.get_color()))
+        print("isGameover: ", self.__current_player.get_is_game_over())
+        print("hasPlacedAny: ", self.__current_player.has_placed_any())
+        print("canPutAnyShape: ", self.__map_model.can_put_any_shape(self.__current_player))
+        if (self.__current_player.get_is_game_over()) or (self.__current_player.has_placed_any() and not self.__map_model.can_put_any_shape(self.__current_player)):
+            print("Stuck")
+            self.__map_view.next_player_turn()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

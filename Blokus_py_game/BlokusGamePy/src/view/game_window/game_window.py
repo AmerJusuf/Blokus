@@ -113,6 +113,15 @@ class GameWindow:
                 self.game_controller.handle_turn()
             else:
                 self.current_player.make_move(self.map_model)
+                self.next_player_turn()
+            is_game_over = True
+            for player in self.players:
+                if not player.get_is_game_over():
+                    is_game_over = False
+            if is_game_over:
+                print("Game Over")
+                break
+
 
 
 
@@ -142,4 +151,4 @@ class GameWindow:
     def next_player_turn(self):
         idx = (self.players.index(self.current_player) + 1) % len(self.players)
         self.current_player = self.players[idx]
-        #print("player idx: " + str(idx))
+        print("player idx: " + str(idx))
